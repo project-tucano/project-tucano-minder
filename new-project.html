@@ -9,39 +9,66 @@
 <body>
 
 <div id="content">
-  <h1>new-project</h1>
+  <h1>新規プロジェクトの登録</h1>
   <form action="./new-project-check.php" method="POST">
     <table>
       <tr>
-        <th>project-name</th>
-        <td><input type="text" name="project-name"></td>
+        <th>新しいプロジェクトの名前を決めてください</th>
+      </tr>
+
+      <tr>
+        <td><input type="text" name="p_name"></td>
+      </tr>
+
+      <tr>
+        <th>どういった内容のプロジェクトですか？</th>
+      </tr>
+      
+      <tr>
+        <td><textarea name="p_content" rows="4" cols="40"></textarea></td>
+      </tr>
+
+      <tr>
+        <th>プロジェクトの目標を教えてください</th>
+      </tr>
+        
+      <tr>
+        <td><input type="text" name="p_goal"></td>
+      </tr>
+
+      <tr>
+        <th>リーダーであるあなたの名前を教えてください</th>
+      </tr>
+      
+      <tr>
+        <td><input type="text" name="u_name"></td>
+      </tr>
+
+      <tr>
+        <th>登録するメールアドレスを教えてください</th>
+      </tr>
+          
+      <tr>
+        <td><input type="text" name="u_mail"></td>
+      </tr>
+
+      <tr>
+        <th>パスワードを入力してください</th>
       </tr>
       <tr>
-        <th>content</th>
-        <td><textarea name="content" rows="4" cols="40"></textarea></td>
+        <td><input type="password" name="u_password"></td>
       </tr>
+
       <tr>
-        <th>target</th>
-        <td><input type="text" name="target"></td>
+        <th>もう一度パスワードを入力してください</th>
       </tr>
+      
       <tr>
-        <th>user-name</th>
-        <td><input type="text" name="user-name"></td>
-      </tr>
-      <tr>
-        <th>email</th>
-        <td><input type="text" name="user-mail"></td>
-      </tr>
-      <tr>
-        <th>password</th>
-        <td><input type="password" name="user-pass"></td>
-      </tr>
-      <tr>
-        <th>pass-check</th>
-        <td><input type="password" name="pass-check"></td>
+      <td><input type="password" name="u_password2"></td>
       </tr>
     </table>
-    <input type="submit" value="check">
+    <input type="submit" value="送信">
+    <input type="button" value="戻る" onClick="history.back()">
   </form>
 </div>
 
