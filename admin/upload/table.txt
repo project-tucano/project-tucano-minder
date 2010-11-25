@@ -1,0 +1,19 @@
+<table border="1">
+  <tr>
+    <th>投稿者</th>
+    <th>タグ</th>
+    <th>名前</th>
+    <th>サイズ</th>
+    <th>投稿日</th>
+    <th>返信</th>
+  </tr>
+  <tr>
+    <td>皆川</td>
+    <td>[var0.1]</td>
+    <td>パーツ(画像詰め合わせ)</td>
+    <td>3.4MB</td>
+    <td>2010/11/22</td>
+    <td><input type="button" name="" value="返信">
+  </tr>
+</table>
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.3w.prg/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="stylesheet" type="text/css" href="../main.css">
+<script src="./jquery.js"></script>
+<title>task</title>
+</head>
+<body>
+
+<div id="header">
+  <div id="logo"></div>
+
+  <div id="head-menu">
+    <ul>
+      <li>メッセージ１件</li>
+      <li>タスク２件</li>
+      <li>メッセージ</li>
+      <li><a href="./setting.html">setting</a></li>
+      <li><a href="../index.html">logout</a></li>
+      <li><img id="src" src="../img/src.jpg"></li>
+    </ul>
+  </div>
+</div>
+
+<div id="nav">
+  <ul>
+    <li><a href="./index.html">home</a></li>
+    <li><a href="./discussion.html">dis</a></li>
+    <li><a href="./task.php">task</a></li>
+    <li><a href="./uploader.html">file</a></li>
+    <li><a href="./members.html">project</a></li>
+  </ul>
+</div>
+
+<!--
+<div id="search">
+  <input type="text">
+</div>
+-->
+
+<div id="content">
+  <div id="main">
+    <h1>タスク詳細</h1>
+    内容
+    <table>
+      <tr>
+        <th colspan="4">タスク画面作成</th>
+      </tr>
+      <tr>
+        <th>担当者</td>
+        <td>広沢</td>
+        <tr>
+          <th>状態</td>
+          <td>作業中</td>
+          <th>開始日</th>
+          <td>2010/11/20</td>
+        </tr>
+      </tr>
+      <th>優先度</td>
+      <td>なにより優先</td>
+      <th>期日</th>
+      <td>2010/11/24</td>
+      </tr>
+    </table>
+<pre>
+アップローダ[No.12]の画像を参考にタスク画面をコーディングしてください。
+参考画像からの改良等はディスカッションを用いて随時相談してください。
+・機能の実装はしなくていいです。
+・各機能のサンプルイメージを作成すること
+・各サンプルイメージへのリンクがあること
+</pre>
+<p>報告コメント</p>
+<form>
+  <select>
+    <option>状態</option>
+    <option>完了</option>
+    <option>未完了</option>
+  </select><br />
+  <textarea cols="30" rows="4"></textarea><br />
+  <input type="submit" value="送信" />
+  <input type="button" value="戻る" onclick="history.back()" />
+</form>
+  </div>
+
+  <div id="side">
+
+  </div>
+</div>
+
+<div id="footer"></div>
+
+</body>
+</html>

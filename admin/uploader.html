@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.3w.prg/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="stylesheet" type="text/css" href="../main.css">
+<title>uploader</title>
+</head>
+<body>
+
+<div id="header">
+  <div id="logo"></div>
+
+  <div id="head-menu">
+    <ul>
+      <li>メッセージ１件</li>
+      <li>タスク２件</li>
+      <li>メッセージ</li>
+      <li><a href="./setting.html">setting</a></li>
+      <li><a href="../index.html">logout</a></li>
+      <li><img id="src" src="../img/src.jpg"></li>
+    </ul>
+  </div>
+</div>
+
+<div id="nav">
+  <ul>
+    <li><a href="./index.html">home</a></li>
+    <li><a href="./discussion.html">dis</a></li>
+    <li><a href="./task.php">task</a></li>
+    <li><a href="./uploader.html">file</a></li>
+    <li><a href="./members.html">project</a></li>
+  </ul>
+</div>
+
+<!--
+<div id="search">
+  <input type="text">
+</div>
+-->
+
+<div id="content">
+  <div id="main">
+    <form method="POST" enctype="multipart/form-data" action="uploader.php">
+      <table>
+        <tr>
+          <th>ファイル選択</th>
+          <td colspan="2"><input type="file" name="upfile"></td>
+        </tr>
+        <tr>
+          <th>タグ</th>
+          <td>
+            <select name="file-tag">
+              <option value="なし">なし</option>
+              <option value="img">img</option>
+              <option value="html">html</option>
+            </select>
+          </td>
+          <td>新規タグ<input type="text" value="" /></td>
+        </tr>
+        <tr>
+          <th>名前</th>
+          <td colspan="2"><input type="text" name="file-name"></td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="アップロードする"></td>
+        </tr>
+      </table>
+    </form><br>
+
+    <table border="1">
+      <tr>
+        <th>投稿者</th>
+        <th>タグ</th>
+        <th>名前</th>
+        <th>サイズ</th>
+        <th>投稿日</th>
+        <th>返信</th>
+        <th>削除</th>
+      </tr>
+      <tr>
+        <td>皆川</td>
+        <td>[img]</td>
+        <td>パーツ(画像詰め合わせ)</td>
+        <td>3.4MB</td>
+        <td>2010/11/11</td>
+        <td><input type="button" name="" value="返信"></td>
+        <td><input type="button" name="" value="削除"></td>
+      </tr>
+    </table><br>
+
+    <table border="1">
+      <tr>
+        <th>投稿者</th>
+        <th>タグ</th>
+        <th>名前</th>
+        <th>サイズ</th>
+        <th>投稿日</th>
+        <th>返信</th>
+        <th>削除</th> 
+      </tr>
+      <tr>
+        <td>澤井</td>
+        <td>[html]</td>
+        <td>デモhtml</td>
+        <td>34KB</td>
+        <td>2010/11/22</td>
+        <td><input type="button" name="" value="返信">
+        <td><input type="button" name="" value="削除"></td>
+
+      </tr>
+      <tr>
+        <td>澤井</td>
+        <td>[html]</td>
+        <td>デモhtml_2</td>
+        <td>34KB</td>
+        <td>2010/11/22</td>
+        <td><input type="button" name="" value="返信" /></td>
+        <td><input type="button" name="" value="削除"></td>
+
+      </tr>
+    </table>
+  </div>
+
+  <div id="side">
+<!--<div class="side-button"><a href="./upload">ファイル一覧</a></div>-->
+  </div>
+</div>
+
+<div id="footer"></div>
+
+</body>
+</html>
