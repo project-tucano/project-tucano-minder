@@ -6,7 +6,7 @@ session_destroy();
 <html xmlns="http://www.3w.prg/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" type="text/css" href="./admin.css">
+<link rel="stylesheet" type="text/css" href="./css/admin.css">
 <title>tucano-minder</title>
 </head>
 <body>
@@ -16,7 +16,7 @@ session_destroy();
     mail<input type="text" name="u_mail"><br>
     pass<input type="password" name="u_password"><br>
     <input type="submit" value="login"><br>
-    <a href="./new-project.html">new project</a>
+	<a href="./new-project.html">new project</a>
   </form>
 </div>
 
