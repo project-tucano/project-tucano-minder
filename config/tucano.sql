@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- ホスト: localhost
--- 生成時間: 2010 年 11 月 26 日 13:13
+-- 生成時間: 2010 年 11 月 28 日 21:33
 -- サーバのバージョン: 5.1.37
 -- PHP のバージョン: 5.2.11
 
@@ -49,19 +49,41 @@ CREATE TABLE `discussions` (
   `d_id` int(11) NOT NULL AUTO_INCREMENT,
   `d_title` varchar(50) NOT NULL,
   `u_id` int(11) NOT NULL,
-  `d_body` text NOT NULL,
   `p_id` int(11) NOT NULL,
   `created` varchar(12) DEFAULT NULL,
   `modified` varchar(12) DEFAULT NULL,
+  `s_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`d_id`),
   KEY `d_tag` (`u_id`,`p_id`),
-  KEY `p_id` (`p_id`)
+  KEY `p_id` (`p_id`),
+  KEY `s_id` (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- テーブルのデータをダンプしています `discussions`
 --
 
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `responses`
+--
+
+CREATE TABLE `responses` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `d_id` int(11) NOT NULL,
+  `r_body` text NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `created` varchar(12) DEFAULT NULL,
+  `modified` varchar(12) DEFAULT NULL,
+  PRIMARY KEY (`r_id`),
+  KEY `d_id` (`d_id`,`u_id`),
+  KEY `u_id` (`u_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- テーブルのデータをダンプしています `responses`
+--
 
 -- --------------------------------------------------------
 
@@ -110,6 +132,27 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` VALUES(1, 'つかーの', 'さわいみながわひろさわからなるグループでグループウェア制作をおこなう', 'OSCに堂々出展', 1, NULL, NULL);
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `statuses`
+--
+
+CREATE TABLE `statuses` (
+  `s_id` int(11) NOT NULL,
+  `s_status` varchar(20) NOT NULL,
+  PRIMARY KEY (`s_id`),
+  UNIQUE KEY `s_status` (`s_status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- テーブルのデータをダンプしています `statuses`
+--
+
+INSERT INTO `statuses` VALUES(1, '稼働');
+INSERT INTO `statuses` VALUES(2, '終了');
 
 -- --------------------------------------------------------
 
@@ -197,8 +240,8 @@ INSERT INTO `users` VALUES(5, 1, 'ひろさわ', 'hirosawa', 'hoge', NULL, NULL)
 -- テーブルの制約 `discussions`
 --
 ALTER TABLE `discussions`
-  ADD CONSTRAINT `discussions_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `discussions_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `projects` (`p_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `discussions_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `projects` (`p_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `discussions_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- テーブルの制約 `files`
@@ -211,6 +254,13 @@ ALTER TABLE `files`
 --
 ALTER TABLE `projects`
   ADD CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- テーブルの制約 `responses`
+--
+ALTER TABLE `responses`
+  ADD CONSTRAINT `responses_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `responses_ibfk_1` FOREIGN KEY (`d_id`) REFERENCES `discussions` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- テーブルの制約 `tags`
