@@ -1,7 +1,8 @@
 <?php
 session_start();
-$msg = "";
 include "./config/include.php";
+
+$msg = "";
 //print $_POST["u_mail"].$_POST["u_password"];
 if (isset($_SESSION["u_name"])) {
     $url = "./index.php";
@@ -13,6 +14,7 @@ if (isset($_SESSION["u_name"])) {
         if ($data) {
             $_SESSION["u_name"] = $data["u_name"];
             $_SESSION["u_project"] = $data["u_project"];
+            $_SESSION["u_id"] = $data["u_id"];
 
             $u_id = $data["u_id"]; //ユーザIDを取得しておく
             $u_project = $data["u_project"]; //所属プロジェクトを取得

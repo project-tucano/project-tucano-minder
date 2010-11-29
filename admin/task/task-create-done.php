@@ -1,15 +1,34 @@
 <?php
 session_start();
-$_SESSION[$_POST['task-id']] = array(
-	'task-name' => $_POST['task-name'],
-	'task-tag' => $_POST['task-tag'],
-	'user-name' => $_POST['user-name'],
-	'task-status' => $_POST['task-status'],
-	'task-limit' => $_POST['task-limit'],
-	'task-details' => $_POST['task-details'],
-	'task-end' => $_POST['task-end'],
-	'task-content' => $_POST['task-content'],
-);
+include "../../config/include.php";
+
+$msg = "";
+$sql = "";
+
+//タグまだ入れてないよ
+
+$u_project = $_SESSION["u_project"];
+
+$t_name = $_POST['t_name'];
+$tag_id = $_POST['tag_id'];
+$u_id = $_POST['u_id'];
+$s_id = $_POST['s_id'];
+$t_limit = $_POST['t_limit'];
+$t_priority = $_POST['t_priority'];
+$t_end = $_POST['t_end'];
+$t_body = $_POST['t_body'];
+
+$sql = "INSERT INTO tasks(p_id, t_name, u_id, s_id, t_limit, t_priority, t_end, t_body )VALUES("
+     . "{$u_project}, '{$t_name}', {$u_id}, {$s_id}, '{$t_limit}', '{$t_priority}', '{$t_end}'"
+     . ", '{$t_body}' )";
+$result = db_result($sql);
+if ($result) {
+    print "ok";
+} else {
+    print "oops";
+}
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.3w.prg/1999/xhtml">

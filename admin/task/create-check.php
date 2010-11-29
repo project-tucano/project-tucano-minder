@@ -1,21 +1,12 @@
 <?php
 session_start();
-if(empty($_SESSION['count'])) {
-	$_SESSION['count'] = 1;
-} else {
-	$_SESSION['count']++;
-}
-$num = "task".$_SESSION['count'];
-$_SESSION[$num] = array(
-	'task-name' => $_POST['task-name'],
-	'task-tag' => $_POST['task-tag'],
-	'user-name' => $_POST['user-name'],
-	'task-status' => $_POST['task-status'],
-	'task-limit' => $_POST['task-limit'],
-	'task-details' => $_POST['task-details'],
-	'task-end' => $_POST['task-end'],
-	'task-content' => $_POST['task-content'],
-);
+include "../../config/include.php";
+
+$msg = "";
+$sql = "";
+
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.3w.prg/1999/xhtml">
