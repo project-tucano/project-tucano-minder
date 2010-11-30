@@ -26,7 +26,7 @@ function db_result($sql) {
     return $result;
 }
 
-//DBと接続し、SQLの結果件数を返す。
+//DBと接続し、SQLの結果件数(行数)を返す。
 function db_rows($sql) {
     $con = db_con();
     $result = mysqli_query($con, $sql);

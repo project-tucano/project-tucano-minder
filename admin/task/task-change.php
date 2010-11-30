@@ -91,7 +91,7 @@ END;
 <div id="nav">
   <ul>
     <li><a href="../index.html">home</a></li>
-    <li><a href="../discussion/discussion.html">dis</a></li>
+    <li><a href="../discussion/discussion.php">dis</a></li>
     <li><a href="./task.php">task</a></li>
     <li><a href="../file/uploader.html">file</a></li>
     <li><a href="../project/members.html">project</a></li>
