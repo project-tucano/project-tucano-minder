@@ -35,7 +35,7 @@ $sql = "SELECT s_id, s_status FROM statuses";
 $result = db_result($sql);
 
 $task = "<select name=\"s_id\">";
-$task .= "<option value=\"未設定\">未設定</option>";
+$task .= "<option value=\"1\">未設定</option>";
 while( $data = mysqli_fetch_array($result) ){
         $task .= "<option value=\"{$data["s_id"]}\">{$data["s_status"]}</option>";
        }

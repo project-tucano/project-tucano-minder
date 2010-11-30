@@ -5,31 +5,22 @@ include "../../config/include.php";
 $msg = "";
 $sql = "";
 
-//タグまだ入れてないよ
+$u_id = $_SESSION["u_id"];
+$t_id = $_POST["t_id"];
+$c_comment = $_POST["c_comment"];
 
-$u_project = $_SESSION["u_project"];
+$sql = "INSERT INTO comments(t_id, c_comment, u_id)VALUES({$t_id}, '{$c_comment}',{$u_id})";
 
-$t_name = $_POST['t_name'];
-$tag_id = $_POST['tag_id'];
-$u_id = $_POST['u_id'];
-$s_id = $_POST['s_id'];
-$t_limit = $_POST['t_limit'];
-$t_priority = $_POST['t_priority'];
-$t_end = $_POST['t_end'];
-$t_body = $_POST['t_body'];
 
-$sql = "INSERT INTO tasks(p_id, t_name, u_id, s_id, t_limit, t_priority, t_end, t_body )VALUES("
-     . "{$u_project}, '{$t_name}', {$u_id}, {$s_id}, '{$t_limit}', '{$t_priority}', '{$t_end}'"
-     . ", '{$t_body}' )";
-     
 $result = db_result($sql);
 if ($result) {
-    print "ok";
+    $msg .= "<a href=\"./task-detail.php?t_id={$t_id}\">ok</a>";
 } else {
-    print "oops";
+    $msg .= "<a href=\"./task-detail.php?t_id={$t_id}\">oops</a>";
 }
 
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.3w.prg/1999/xhtml">
 <head>
@@ -64,16 +55,20 @@ if ($result) {
   </ul>
 </div>
 
+
 <div id="content">
   <div id="main">
-    <p>complete!</p>
-    <a href="./task.php">task</a>
+    <?php print $msg; ?>
   </div>
 
-  <div id="side"></div>
+  <div id="side">
+
+  </div>
 </div>
 
-<div id="footer"></div>
+<div id="footer">
+
+</div>
 
 </body>
 </html>

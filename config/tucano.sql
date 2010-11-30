@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- ホスト: localhost
--- 生成時間: 2010 年 11 月 28 日 21:33
+-- 生成時間: 2010 年 11 月 29 日 21:18
 -- サーバのバージョン: 5.1.37
 -- PHP のバージョン: 5.2.11
 
@@ -31,11 +31,36 @@ CREATE TABLE `admin` (
   `a_id` int(11) NOT NULL,
   `a_password` varchar(30) NOT NULL,
   `a_mail` varchar(60) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`a_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータをダンプしています `admin`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `comments`
+--
+
+CREATE TABLE `comments` (
+  `c_id` int(11) NOT NULL AUTO_INCREMENT,
+  `t_id` int(11) NOT NULL,
+  `c_comment` varchar(2000) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `u_id` int(11) NOT NULL,
+  PRIMARY KEY (`c_id`),
+  KEY `t_id` (`t_id`),
+  KEY `u_id` (`u_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- テーブルのデータをダンプしています `comments`
 --
 
 
@@ -50,9 +75,9 @@ CREATE TABLE `discussions` (
   `d_title` varchar(50) NOT NULL,
   `u_id` int(11) NOT NULL,
   `p_id` int(11) NOT NULL,
-  `created` varchar(12) DEFAULT NULL,
-  `modified` varchar(12) DEFAULT NULL,
-  `s_id` int(11) NOT NULL DEFAULT '0',
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `s_id` int(11) DEFAULT '0',
   PRIMARY KEY (`d_id`),
   KEY `d_tag` (`u_id`,`p_id`),
   KEY `p_id` (`p_id`),
@@ -63,27 +88,6 @@ CREATE TABLE `discussions` (
 -- テーブルのデータをダンプしています `discussions`
 --
 
--- --------------------------------------------------------
-
---
--- テーブルの構造 `responses`
---
-
-CREATE TABLE `responses` (
-  `r_id` int(11) NOT NULL AUTO_INCREMENT,
-  `d_id` int(11) NOT NULL,
-  `r_body` text NOT NULL,
-  `u_id` int(11) NOT NULL,
-  `created` varchar(12) DEFAULT NULL,
-  `modified` varchar(12) DEFAULT NULL,
-  PRIMARY KEY (`r_id`),
-  KEY `d_id` (`d_id`,`u_id`),
-  KEY `u_id` (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- テーブルのデータをダンプしています `responses`
---
 
 -- --------------------------------------------------------
 
@@ -96,9 +100,9 @@ CREATE TABLE `files` (
   `f_name` varchar(30) NOT NULL,
   `u_id` int(11) DEFAULT NULL,
   `f_size` varchar(20) DEFAULT NULL,
-  `f_content` varchar(1000) DEFAULT NULL,
-  `created` varchar(12) DEFAULT NULL,
-  `modified` varchar(12) NOT NULL,
+  `f_content` longblob,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`f_id`),
   KEY `u_id` (`u_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -120,8 +124,8 @@ CREATE TABLE `projects` (
   `p_content` text,
   `p_goal` varchar(200) DEFAULT NULL,
   `u_id` int(11) NOT NULL,
-  `created` varchar(12) DEFAULT NULL,
-  `modified` varchar(12) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`p_id`),
   KEY `l_id` (`u_id`),
   KEY `u_id` (`u_id`)
@@ -133,6 +137,28 @@ CREATE TABLE `projects` (
 
 INSERT INTO `projects` VALUES(1, 'つかーの', 'さわいみながわひろさわからなるグループでグループウェア制作をおこなう', 'OSCに堂々出展', 1, NULL, NULL);
 
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `responses`
+--
+
+CREATE TABLE `responses` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `d_id` int(11) NOT NULL,
+  `r_body` text NOT NULL,
+  `u_id` int(11) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`r_id`),
+  KEY `d_id` (`d_id`,`u_id`),
+  KEY `u_id` (`u_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- テーブルのデータをダンプしています `responses`
+--
+
 
 -- --------------------------------------------------------
 
@@ -141,18 +167,20 @@ INSERT INTO `projects` VALUES(1, 'つかーの', 'さわいみながわひろさ
 --
 
 CREATE TABLE `statuses` (
-  `s_id` int(11) NOT NULL,
+  `s_id` int(11) NOT NULL AUTO_INCREMENT,
   `s_status` varchar(20) NOT NULL,
   PRIMARY KEY (`s_id`),
   UNIQUE KEY `s_status` (`s_status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- テーブルのデータをダンプしています `statuses`
 --
 
-INSERT INTO `statuses` VALUES(1, '稼働');
-INSERT INTO `statuses` VALUES(2, '終了');
+INSERT INTO `statuses` VALUES(2, '作業中');
+INSERT INTO `statuses` VALUES(1, '待機');
+INSERT INTO `statuses` VALUES(3, '確認中');
+INSERT INTO `statuses` VALUES(4, '終了');
 
 -- --------------------------------------------------------
 
@@ -164,15 +192,18 @@ CREATE TABLE `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tag_name` varchar(20) NOT NULL,
   `p_id` int(11) NOT NULL,
-  `table` enum('discussions',' files','tasks') NOT NULL,
+  `place` enum('discussions',' files','tasks') NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`tag_id`),
   KEY `p_id` (`p_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- テーブルのデータをダンプしています `tags`
 --
 
+INSERT INTO `tags` VALUES(1, '開発', 1, 'tasks', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -185,24 +216,28 @@ CREATE TABLE `tasks` (
   `p_id` int(11) NOT NULL,
   `t_name` varchar(50) NOT NULL,
   `u_id` int(11) NOT NULL,
-  `t_status` varchar(20) NOT NULL,
   `t_limit` varchar(12) NOT NULL,
   `t_priority` varchar(18) DEFAULT NULL,
   `t_end` varchar(50) DEFAULT NULL,
-  `t_body` varchar(2000) DEFAULT NULL,
-  `created` varchar(12) DEFAULT NULL,
-  `modified` varchar(12) DEFAULT NULL,
+  `t_body` text,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   `t_begin` varchar(12) DEFAULT NULL,
+  `s_id` int(11) NOT NULL,
   PRIMARY KEY (`t_id`),
   KEY `p_id` (`p_id`),
   KEY `p_id_2` (`p_id`,`u_id`),
-  KEY `u_id` (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `u_id` (`u_id`),
+  KEY `s_id` (`s_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- テーブルのデータをダンプしています `tasks`
 --
 
+INSERT INTO `tasks` VALUES(1, 1, 'モーニングコール', 4, '2010/11/29', '朝、頼む・・', '皆川が起き上がる', 'むくり・・むくり・・', NULL, NULL, NULL, 1);
+INSERT INTO `tasks` VALUES(2, 1, 'さんぽ１００キロ', 4, '2010/11/30', '今すぐ', 'ゴール', 'フルマラソン２回半だし', NULL, NULL, NULL, 1);
+INSERT INTO `tasks` VALUES(3, 1, 'github id登録', 5, '2010/11/29', 'はやく', 'tucanoをウォッチする', 'gitをインストール\r\ngithubのID登録\r\n鍵の登録\r\ntucanoをウォッチ', NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -216,8 +251,8 @@ CREATE TABLE `users` (
   `u_name` varchar(20) NOT NULL,
   `u_mail` varchar(80) NOT NULL,
   `u_password` varchar(30) NOT NULL,
-  `created` varchar(12) DEFAULT NULL,
-  `modified` varchar(12) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`u_id`),
   UNIQUE KEY `u_mail` (`u_mail`),
   UNIQUE KEY `u_mail_2` (`u_mail`),
@@ -235,6 +270,13 @@ INSERT INTO `users` VALUES(5, 1, 'ひろさわ', 'hirosawa', 'hoge', NULL, NULL)
 --
 -- ダンプしたテーブルの制約
 --
+
+--
+-- テーブルの制約 `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `tasks` (`t_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- テーブルの制約 `discussions`
@@ -259,8 +301,8 @@ ALTER TABLE `projects`
 -- テーブルの制約 `responses`
 --
 ALTER TABLE `responses`
-  ADD CONSTRAINT `responses_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `responses_ibfk_1` FOREIGN KEY (`d_id`) REFERENCES `discussions` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `responses_ibfk_1` FOREIGN KEY (`d_id`) REFERENCES `discussions` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `responses_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- テーブルの制約 `tags`
@@ -272,8 +314,9 @@ ALTER TABLE `tags`
 -- テーブルの制約 `tasks`
 --
 ALTER TABLE `tasks`
+  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `projects` (`p_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `tasks_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `projects` (`p_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `tasks_ibfk_3` FOREIGN KEY (`s_id`) REFERENCES `statuses` (`s_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- テーブルの制約 `users`
