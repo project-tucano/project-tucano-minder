@@ -20,6 +20,9 @@ if (isset($_SESSION["u_name"])) {
             $_SESSION["u_project"] = $data["u_project"];
             $_SESSION["u_id"] = $data["u_id"];
 <<<<<<< HEAD:login-check.php
+<<<<<<< HEAD:login-check.php
+>>>>>>> 642ab20b61fa226df9df594cd38320d520e607ff:login-check.php
+=======
 >>>>>>> 642ab20b61fa226df9df594cd38320d520e607ff:login-check.php
 =======
 >>>>>>> 642ab20b61fa226df9df594cd38320d520e607ff:login-check.php
