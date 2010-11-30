@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- ホスト: localhost
--- 生成時間: 2010 年 11 月 29 日 21:18
+-- 生成時間: 2010 年 12 月 01 日 02:11
 -- サーバのバージョン: 5.1.37
 -- PHP のバージョン: 5.2.11
 
@@ -50,19 +50,32 @@ CREATE TABLE `admin` (
 CREATE TABLE `comments` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
   `t_id` int(11) NOT NULL,
-  `c_comment` varchar(2000) NOT NULL,
+  `c_comment` text NOT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `u_id` int(11) NOT NULL,
   PRIMARY KEY (`c_id`),
   KEY `t_id` (`t_id`),
   KEY `u_id` (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- テーブルのデータをダンプしています `comments`
 --
 
+INSERT INTO `comments` VALUES(1, 2, 'test', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(2, 2, 'test', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(3, 2, 'test', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(4, 2, 'test', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(5, 2, 'da', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(6, 2, 'da', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(7, 2, 'da', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(8, 2, 'ddfdfda', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(9, 2, 'ddfdfda', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(10, 2, 'ddfdfda', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(11, 2, 'うまくいくはず', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(12, 2, 'うまくいくはず', NULL, NULL, 1);
+INSERT INTO `comments` VALUES(13, 2, 'うまくいくはず', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -171,7 +184,7 @@ CREATE TABLE `statuses` (
   `s_status` varchar(20) NOT NULL,
   PRIMARY KEY (`s_id`),
   UNIQUE KEY `s_status` (`s_status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- テーブルのデータをダンプしています `statuses`
@@ -179,6 +192,7 @@ CREATE TABLE `statuses` (
 
 INSERT INTO `statuses` VALUES(2, '作業中');
 INSERT INTO `statuses` VALUES(1, '待機');
+INSERT INTO `statuses` VALUES(5, '未設定');
 INSERT INTO `statuses` VALUES(3, '確認中');
 INSERT INTO `statuses` VALUES(4, '終了');
 
@@ -215,7 +229,7 @@ CREATE TABLE `tasks` (
   `t_id` int(11) NOT NULL AUTO_INCREMENT,
   `p_id` int(11) NOT NULL,
   `t_name` varchar(50) NOT NULL,
-  `u_id` int(11) NOT NULL,
+  `u_id` int(11) DEFAULT NULL,
   `t_limit` varchar(12) NOT NULL,
   `t_priority` varchar(18) DEFAULT NULL,
   `t_end` varchar(50) DEFAULT NULL,
@@ -229,7 +243,7 @@ CREATE TABLE `tasks` (
   KEY `p_id_2` (`p_id`,`u_id`),
   KEY `u_id` (`u_id`),
   KEY `s_id` (`s_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- テーブルのデータをダンプしています `tasks`
@@ -275,8 +289,8 @@ INSERT INTO `users` VALUES(5, 1, 'ひろさわ', 'hirosawa', 'hoge', NULL, NULL)
 -- テーブルの制約 `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `tasks` (`t_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `tasks` (`t_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`u_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- テーブルの制約 `discussions`

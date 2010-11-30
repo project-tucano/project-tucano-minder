@@ -38,12 +38,26 @@ $msg .= <<< END
 {$data["t_body"]}
 </pre>
 </table>
-
-<h1>コメント</h1>
-広沢　2010/11/11 11:11<br>
-はいよー
-
 END;
+
+//コメントを取得
+$sql = "SELECT u_name, c_comment FROM comments, users WHERE t_id = {$t_id} AND comments.u_id = users.u_id";
+
+$result = db_result($sql);
+
+$msg .= "<h2>コメント</h2>";
+while( $data = mysqli_fetch_array($result) ){
+    $msg .= <<< END
+<table>
+  <tr>
+   <td>{$data["u_name"]}</td>
+  </tr>
+  <tr>
+   <td></td><td>{$data["c_comment"]}</td>
+  </tr>
+</table>
+END;
+}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -81,12 +95,6 @@ END;
   </ul>
 </div>
 
-<!--
-<div id="search">
-  <input type="text">
-</div>
--->
-
 <div id="content">
   <div id="main">
     <h1>タスク詳細</h1>
@@ -96,12 +104,14 @@ END;
   </div>
 
   <div id="side">
-    <div class="side-button"><a href="#">コメントする</a></div>
+    <div class="side-button"><a href="./task-comment.php?t_id=<?php print $t_id ?>">コメントする</a></div>
     <div class="side-button"><a href="./repo.html">完了報告</a></div>
   </div>
 </div>
 
-<div id="footer"></div>
+<div id="footer">
+
+</div>
 
 </body>
 </html>
