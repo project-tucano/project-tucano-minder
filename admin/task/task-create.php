@@ -10,12 +10,12 @@ $users = "";
 $sql = "SELECT u_id, u_name FROM users WHERE u_project = {$_SESSION["u_project"]}";
 $result = db_result($sql);
 
-$users = "<select name=\"u_id\">";
+$users = "<select name=\"u_id\">"
+       . "<option value=\"none\">未設定</option>";
 while( $data = mysqli_fetch_array($result) ){
         $users .= "<option value=\"{$data["u_id"]}\">{$data["u_name"]}</option>";
        }
-$users .= "<option value=\"未設定\">未設定</option>"
-        . "</select>";
+$users .= "</select>";
 
 //タグ一覧取得
 $tags = "";
@@ -23,7 +23,7 @@ $sql = "SELECT tag_id, tag_name FROM tags WHERE p_id = {$_SESSION["u_project"]} 
 $result = db_result($sql);
 
 $tags = "<select name=\"tag_id\">";
-$tags .= "<option value=\"none\">未設定</option>";
+$tags .= "<option value=\"1\">未設定</option>";
 while( $data = mysqli_fetch_array($result) ){
         $tags .= "<option value=\"{$data["tag_id"]}\">{$data["tag_name"]}</option>";
        }

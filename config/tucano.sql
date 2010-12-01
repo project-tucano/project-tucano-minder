@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- ホスト: localhost
--- 生成時間: 2010 年 12 月 01 日 02:11
+-- 生成時間: 2010 年 12 月 01 日 10:49
 -- サーバのバージョン: 5.1.37
 -- PHP のバージョン: 5.2.11
 
@@ -217,7 +217,8 @@ CREATE TABLE `tags` (
 -- テーブルのデータをダンプしています `tags`
 --
 
-INSERT INTO `tags` VALUES(1, '開発', 1, 'tasks', NULL, NULL);
+INSERT INTO `tags` VALUES(1, '未設定', 1, 'tasks', NULL, NULL);
+INSERT INTO `tags` VALUES(2, '開発', 1, 'tasks', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -243,7 +244,7 @@ CREATE TABLE `tasks` (
   KEY `p_id_2` (`p_id`,`u_id`),
   KEY `u_id` (`u_id`),
   KEY `s_id` (`s_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- テーブルのデータをダンプしています `tasks`
@@ -252,6 +253,8 @@ CREATE TABLE `tasks` (
 INSERT INTO `tasks` VALUES(1, 1, 'モーニングコール', 4, '2010/11/29', '朝、頼む・・', '皆川が起き上がる', 'むくり・・むくり・・', NULL, NULL, NULL, 1);
 INSERT INTO `tasks` VALUES(2, 1, 'さんぽ１００キロ', 4, '2010/11/30', '今すぐ', 'ゴール', 'フルマラソン２回半だし', NULL, NULL, NULL, 1);
 INSERT INTO `tasks` VALUES(3, 1, 'github id登録', 5, '2010/11/29', 'はやく', 'tucanoをウォッチする', 'gitをインストール\r\ngithubのID登録\r\n鍵の登録\r\ntucanoをウォッチ', NULL, NULL, NULL, 2);
+INSERT INTO `tasks` VALUES(6, 1, 'なまえ', 4, 'asita', 'ganba', 'nasi', 'ganbatte.', NULL, NULL, NULL, 1);
+INSERT INTO `tasks` VALUES(7, 1, 'うおいるえお', 4, 'daklj', 'kjldkldkjl', 'kjllsklj', 'k;ejkdjkdl', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 

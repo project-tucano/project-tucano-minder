@@ -10,7 +10,7 @@ $sql = "";
 $u_project = $_SESSION["u_project"];
 
 $t_name = $_POST['t_name'];
-$tag_id = $_POST['tag_id'];
+$tag_id = $_POST['tag_id'];     //タグ
 $u_id = $_POST['u_id'];
 $s_id = $_POST['s_id'];
 $t_limit = $_POST['t_limit'];
@@ -19,14 +19,14 @@ $t_end = $_POST['t_end'];
 $t_body = $_POST['t_body'];
 
 $sql = "INSERT INTO tasks(p_id, t_name, u_id, s_id, t_limit, t_priority, t_end, t_body )VALUES("
-     . "{$u_project}, '{$t_name}', {$u_id}, {$s_id}, '{$t_limit}', '{$t_priority}', '{$t_end}'"
+     . "{$u_project}, '{$t_name}', '{$u_id}', '{$s_id}', '{$t_limit}', '{$t_priority}', '{$t_end}'"
      . ", '{$t_body}' )";
      
 $result = db_result($sql);
 if ($result) {
-    print "ok";
+    $msg .= "<p>タスクを生成しました。</p>";
 } else {
-    print "oops";
+    $msg .= "<p>タスクの生成に失敗しました。</p>";
 }
 
 ?>
@@ -66,7 +66,7 @@ if ($result) {
 
 <div id="content">
   <div id="main">
-    <p>complete!</p>
+    <?php print $msg ?>
     <a href="./task.php">task</a>
   </div>
 
