@@ -7,7 +7,8 @@ $sql = "";
 
 //ユーザ一覧取得
 $users = "";
-$sql = "SELECT u_id, u_name FROM users WHERE u_project = {$_SESSION["u_project"]}";
+$sql = "SELECT u.u_id, u_name FROM users as u, members as m "
+     . "WHERE u.u_id = m.u_id AND m.p_id = {$_SESSION["p_id"]}";
 $result = db_result($sql);
 
 $users = "<select name=\"u_id\">"
@@ -19,11 +20,10 @@ $users .= "</select>";
 
 //タグ一覧取得
 $tags = "";
-$sql = "SELECT tag_id, tag_name FROM tags WHERE p_id = {$_SESSION["u_project"]} AND place = 'tasks'";
+$sql = "SELECT tag_id, tag_name FROM tags WHERE p_id = {$_SESSION["p_id"]} AND place = 'tasks'";
 $result = db_result($sql);
 
 $tags = "<select name=\"tag_id\">";
-$tags .= "<option value=\"1\">未設定</option>";
 while( $data = mysqli_fetch_array($result) ){
         $tags .= "<option value=\"{$data["tag_id"]}\">{$data["tag_name"]}</option>";
        }
@@ -31,11 +31,10 @@ $tags .= "</select>";
 
 //タスク状態一覧取得
 $task = "";
-$sql = "SELECT s_id, s_status FROM statuses";
+$sql = "SELECT s_id, s_status FROM statuses WHERE s_place = 'make' ORDER BY s_id";
 $result = db_result($sql);
 
 $task = "<select name=\"s_id\">";
-$task .= "<option value=\"1\">未設定</option>";
 while( $data = mysqli_fetch_array($result) ){
         $task .= "<option value=\"{$data["s_id"]}\">{$data["s_status"]}</option>";
        }

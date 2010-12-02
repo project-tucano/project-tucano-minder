@@ -6,10 +6,28 @@ $msg = "";
 $sql = "";
 $t_id = $_GET["t_id"];
 
-$sql = "SELECT * FROM tasks, users, statuses WHERE t_id = {$t_id}";
+$sql = "SELECT t_id, t_body, t_name, u_name, t_limit, t_priority, s_status "
+     . "FROM tasks as t, users as u, statuses as s "
+     . "WHERE t_id = {$t_id} AND t.p_id = {$_SESSION["p_id"]} "
+     . "AND u.u_id = t.u_id AND s.s_id = t.s_id ORDER BY t_limit DESC";
+
 $data = db_data($sql);
 
 $msg .= <<< END
+<h1>タスク報告</h1>
+<form action="task-repo-check.php" method="POST">
+  <select name="s_id">
+    <option value="none">報告状態</option>
+    <option value="5">未完了</option>
+    <option value="6">完了</option>
+  </select><br />
+  <textarea name="c_comment" cols="30" rows="4"></textarea><br />
+  <input type="hidden" name="t_id" value="{$t_id}" />
+  <input type="submit" value="送信" />
+  <input type="button" value="戻る" onclick="history.back()" />
+</form>
+
+<h2>タスク詳細</h2>
 <table>
 <tr>
 <th>担当者</td>
@@ -94,15 +112,10 @@ END;
 
 <div id="content">
   <div id="main">
-    <h1>タスク詳細</h1>
-    内容
-<?php print $msg; ?>
-
+  <?php print $msg; ?>
   </div>
-
   <div id="side">
-    <div class="side-button"><a href="./task-comment.php?t_id=<?php print $t_id ?>">コメントする</a></div>
-    <div class="side-button"><a href="./task-repo.php?t_id=<?php print $t_id ?>">完了報告</a></div>
+
   </div>
 </div>
 

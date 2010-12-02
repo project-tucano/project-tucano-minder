@@ -5,9 +5,14 @@ include "../../config/include.php";
 $msg = "";
 $sql = "";
 
-$sql = "SELECT * FROM tasks, users, statuses WHERE p_id = {$_SESSION["u_project"]} "
-     . "AND users.u_id = tasks.u_id AND statuses.s_id = tasks.s_id ORDER BY t_limit DESC";
+
+$sql = "SELECT t_id, t_name, u_name, t_limit, t_priority, s_status "
+     . "FROM tasks as t, users as u, statuses as s "
+     . "WHERE t.p_id = {$_SESSION["p_id"]} "
+     . "AND u.u_id = t.u_id AND s.s_id = t.s_id ORDER BY t_limit DESC";
+
 $result = db_result($sql);
+
 if ($result){
     $msg .= <<< END
 <table border="1">

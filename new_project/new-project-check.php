@@ -68,7 +68,7 @@ END;
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <link rel="stylesheet" type="text/css" href="">
-<script src="./jquery.js"></script>
+<script src="../js/jquery.js"></script>
 <title>new-project</title>
 </head>
 <body>

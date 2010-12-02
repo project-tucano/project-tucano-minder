@@ -8,24 +8,24 @@ if (isset($_SESSION["u_name"])) {
     $url = "./index.php";
 } else {
     if (!empty($_POST["u_mail"]) && !empty($_POST["u_password"]) ){
-        $sql = "SELECT u_id, u_name,u_project  FROM users "
+        $sql = "SELECT users.u_id, u_name, p_id FROM users, members "
              . "WHERE u_mail = '{$_POST["u_mail"]}' AND u_password = '{$_POST["u_password"]}'";
         $data = db_data($sql);
         if ($data) {
             $_SESSION["u_name"] = $data["u_name"];
-            $_SESSION["u_project"] = $data["u_project"];
             $_SESSION["u_id"] = $data["u_id"];
+            $_SESSION["p_id"] = $data["p_id"];
 
-            $u_id = $data["u_id"]; //ユーザIDを取得しておく
-            $u_project = $data["u_project"]; //所属プロジェクトを取得
-            $sql = "SELECT u_id FROM projects WHERE p_id = {$u_project}"; //プロマネのユーザIDを収得する
+            $sql = "SELECT u_id FROM projects WHERE p_id = {$_SESSION["p_id"]}"; //プロマネのユーザIDを収得する
             $data = db_data($sql);
-            $pm_id = $data["u_id"]; //プロジェクトマネージャーのIDという変数
+            $pm_id = $data["u_id"];
 
-            if($u_id === $pm_id){ //ログインするユーザと所属プロジェクトのマネージャーのIDを比較
+            if($_SESSION["u_id"] === $pm_id){ //ログインするユーザと所属プロジェクトのマネージャーのIDを比較
+                $_SESSION["who"] = "leader"; //リーダーかメンバーかを保存しておく
                 $url = "./admin/index.html";
             } else {
-                $url = "./user/index.html";
+                $_SESSION["who"] = "member";
+                $url = "./admin/index.html";
             }
             
         } else {

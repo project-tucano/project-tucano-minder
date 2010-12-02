@@ -7,6 +7,9 @@ $sql = "";
 
 $tag_id = $_POST['tag_id'];
 $u_id = $_POST["u_id"];
+if ($u_id === none){
+    $u_id = NULL;
+}
 $s_id = $_POST["s_id"];
 
 $sql = "SELECT users.u_id, u_name, statuses.s_id, s_status FROM users, statuses, tasks "

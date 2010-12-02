@@ -12,11 +12,11 @@ session_destroy();
 <body>
 <div id="content">
   <h1>tucano minder</h1>
-  <form action="login-check.php" method="POST">
+  <form action="./login-check.php" method="POST">
     mail<input type="text" name="u_mail"><br>
     pass<input type="password" name="u_password"><br>
     <input type="submit" value="login"><br>
-	<a href="./new-project.html">new project</a>
+	<a href="./new_project/new-project.html">new project</a>
   </form>
 </div>
 
