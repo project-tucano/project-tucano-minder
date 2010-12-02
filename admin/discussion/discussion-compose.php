@@ -25,7 +25,7 @@
 <div id="nav">
   <ul>
     <li><a href="../index.html">home</a></li>
-    <li><a href="./discussion.html">dis</a></li>
+    <li><a href="./discussion.php">dis</a></li>
     <li><a href="../task/task.php">task</a></li>
     <li><a href="../file/uploader.html">file</a></li>
     <li><a href="../project/members.html">project</a></li>
@@ -41,11 +41,11 @@
 <div id="content">
   <div id="main">
 	<h1>投稿</h1>
-    <form action="./discussion-delete.php" method="POST">
+    <form action="./discussion-insert.php" method="POST">
       <table>
         <tr>
           <th>タイトル</th>
-          <td><input type="text" name="subtitle" value="<?php echo $_POST['subtitle'] ?>"></td>
+          <td><input type="text" name="d_title" value="<?php echo $_POST['d_title'] ?>"></td>
         </tr>
         <tr>
           <th>タグ</th>
@@ -53,10 +53,10 @@
         </tr>
         <tr>
           <th>本文</th>
-          <td><textarea name="dis-topic" rows="7" cols="40"><?php echo $_POST['dis-topic'] ?></textarea></td>
+          <td><textarea name="d-body" rows="7" cols="40"><?php echo $_POST['d-body'] ?></textarea></td>
         </tr>
       </table>
-      <a href="./discussion.html">投稿</a>
+      <input type="submit" value="投稿">
     </form>
   </div>
 

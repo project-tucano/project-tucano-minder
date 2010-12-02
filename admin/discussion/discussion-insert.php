@@ -1,31 +1,19 @@
 <?php
+session_start();
 $msg = "";
-if ($_POST['user-pass'] == $_POST['pass-check']) {
-$msg .= <<< END
-<form action="./user-create.php" method="POST">
-<table>
-<tr>
-<th>user-name</th>
-<td><input type="text" name="user-name" value="{$_POST['user-name']}"></td>
-</tr>
-<tr>
-<th>user-pass</th>
-<td><input type="password" name="user-pass" value="{$_POST['user-pass']}"></td>
-</tr>
-<tr>
-<th>user-email</th>
-<td><input type="text" name="user-mail" value="{$_POST['user-mail']}"></td>
-</tr>
-<tr>
-<td><input type="submit" value="create"></td>
-</tr>
-</table>
-</form>
-END;
+include "../../config/include.php";
+//$_POST["d_body"];
+//$_SESSION["u_id"] = $data["u_id"];
+//$_SESSION["u_name"] = $data["u_name"];
+//$_SESSION["p_id"] = $data["u_project"];
+
+$sql = "INSERT INTO discussions ( d_title, u_id, p_id ) VALUES ( "
+     . "'{$_POST['d_title']}', {$_SESSION["u_id"]}, {$_SESSION["p_id"]} )";
+$result = db_result($sql);
+if ($result) {
+    $msg .= "discussionsテーブルにinsertしました。";
 } else {
-$msg .= <<< END
-<p>passが違います。</p>
-END;
+    $msg .= "insertに失敗しました。";
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,7 +22,7 @@ END;
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <link rel="stylesheet" type="text/css" href="../../css/main.css">
 <script src="../../js/jquery.js"></script>
-<title>project</title>
+<title>discussion</title>
 </head>
 <body>
 
@@ -56,10 +44,10 @@ END;
 <div id="nav">
   <ul>
     <li><a href="../index.html">home</a></li>
-    <li><a href="../discussion/discussion.php">dis</a></li>
+    <li><a href="./discussion.php">dis</a></li>
     <li><a href="../task/task.php">task</a></li>
     <li><a href="../file/uploader.html">file</a></li>
-    <li><a href="./members.html">project</a></li>
+    <li><a href="../project/members.html">project</a></li>
   </ul>
 </div>
 
@@ -74,7 +62,8 @@ END;
     <?php echo $msg; ?>
   </div>
 
-  <div id="side"></div>
+  <div id="side">
+  </div>
 </div>
 
 <div id="footer"></div>
