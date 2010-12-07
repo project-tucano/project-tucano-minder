@@ -7,7 +7,7 @@ $sql = "";
 
 //タグまだ入れてないよ
 
-$u_project = $_SESSION["u_project"];
+$p_id = $_SESSION["p_id"];
 
 $t_name = $_POST['t_name'];
 $tag_id = $_POST['tag_id'];     //タグ
@@ -19,7 +19,7 @@ $t_end = $_POST['t_end'];
 $t_body = $_POST['t_body'];
 
 $sql = "INSERT INTO tasks(p_id, t_name, u_id, s_id, t_limit, t_priority, t_end, t_body )VALUES("
-     . "{$u_project}, '{$t_name}', '{$u_id}', '{$s_id}', '{$t_limit}', '{$t_priority}', '{$t_end}'"
+     . "{$p_id}, '{$t_name}', '{$u_id}', '{$s_id}', '{$t_limit}', '{$t_priority}', '{$t_end}'"
      . ", '{$t_body}' )";
      
 $result = db_result($sql);

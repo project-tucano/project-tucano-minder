@@ -30,15 +30,15 @@ while( $data = mysqli_fetch_array($result) ){
 $tags .= "</select>";
 
 //タスク状態一覧取得
-$task = "";
+$status = "";
 $sql = "SELECT s_id, s_status FROM statuses WHERE s_place = 'make' ORDER BY s_id";
 $result = db_result($sql);
 
-$task = "<select name=\"s_id\">";
+$status = "<select name=\"s_id\">";
 while( $data = mysqli_fetch_array($result) ){
-        $task .= "<option value=\"{$data["s_id"]}\">{$data["s_status"]}</option>";
+        $status .= "<option value=\"{$data["s_id"]}\">{$data["s_status"]}</option>";
        }
-$task .= "</select>";
+$status .= "</select>";
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -99,7 +99,7 @@ $task .= "</select>";
         </tr>
         <tr>
           <th>タスク状態</th>
-          <td><?php print $task ?></td>
+          <td><?php print $status ?></td>
         </tr>
         <tr>
           <th>タスク期限</th>
