@@ -1,7 +1,7 @@
 <?php
 session_start();
-$msg = "";
 include "../../config/include.php";
+$msg = "";
 
 $sql = "SELECT dis.d_id, dis.d_title, user.u_name, dis.created "
      . "FROM discussions AS dis, users AS user "
@@ -81,8 +81,8 @@ END;
   </div>
 
   <div id="side">
-    <div class="side-button"><a href="./dis-post.html">新規投稿</a></div>
-<!--    <div class="side-button"><a href="./dis-del.php">投稿削除</a></div>  -->
+    <div class="side-button"><a href="./dis-post.php">新規投稿</a></div>
+<!--    <div class="side-button"><a href="./dis-del.php">投稿削除</a></div>-->
   </div>
 </div>
 

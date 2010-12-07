@@ -1,5 +1,17 @@
 <?php
 session_start();
+$msg = "";
+$msg .= <<< END
+<form action="./res-reply-check-done.php" method="POST">
+<input type="hidden" name="r_body" value="{$_POST['r_body']}">
+<table>
+<tr>
+<td>{$_POST['r_body']}</td>
+<td><input type="submit" value="投稿"></td>
+</tr>
+</table>
+</form>
+END;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -43,9 +55,7 @@ session_start();
 
 <div id="content">
   <div id="main">
-    <form action="./res-reply-check-done.php" method="POST">
-      <textarea name="r_body" rows="7" cols="40"><?php echo $_POST['r_body']; ?></textarea>
-	<input type="submit" value="投稿">
+    <?php echo $msg; ?>
   </div>
 
   <div id="side">

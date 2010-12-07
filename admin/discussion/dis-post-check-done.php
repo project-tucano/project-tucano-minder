@@ -1,26 +1,58 @@
 <?php
 session_start();
-$msg = "";
 include "../../config/include.php";
+$msg = "";
 
-$sql = "INSERT INTO discussions ( d_title, u_id, p_id ) VALUES ( "
-     . "'{$_POST['d_title']}', {$_SESSION["u_id"]}, {$_SESSION["p_id"]} )";
+$u_id = $_SESSION['u_id'];
+$p_id = $_SESSION['p_id'];
+$d_title = $_POST['d_title'];
+$r_body = $_POST['r_body'];
+
+$sql  = "INSERT INTO discussions (d_title, u_id, p_id, created, modified) VALUES ('{$d_title}', {$u_id}, {$p_id}, now(), now())";
+//最初にdiscussionsテーブルにinsertしないとresponsesにinsert出来ない。
+
 $result = db_result($sql);
-if ($result) {
-	$sql = "SELECT MAX(d_id) FROM discussions";
-	$dis = db_data($sql);
 
-	$sql = "INSERT INTO responses ( d_id, r_body, u_id ) VALUES ( "
-	     . "{$dis['MAX(d_id)']}, '{$_POST['r_body']}', {$_SESSION['u_id']} )";
-	$result = db_result($sql);
+if ($result) {
+	$sql = "SELECT MAX(d_id) FROM discussions";//d_idがMAXなのが最近作られたスレッド
+
+    $dis = db_data($sql);
+
+	$sql = "INSERT INTO responses (d_id, r_body, u_id, created, modified) VALUES ({$dis['MAX(d_id)']}, '{$r_body}', {$u_id}, now(), now())";
+
+    $result = db_result($sql);
+
 	if ($result) {
-		$msg .= "新規スレッド作成しました。<br>"
-		      . "<a href=\"./discussion.php\">disに戻る</a>";
+		$msg .= "<p>新規スレッド作成しました。</p>";
+		$msg .= "<a href=\"./discussion.php\">スレッドに戻る</a>";
 	} else {
-		$msg .= "responsesテーブルにinsertできませんでした。<br>";
+		$msg .= "<p>新規スレッドに投稿出来ませんでした。</p>";
+		$msg .= "<a href=\"./discussion.php\">スレッドに戻る</a>";
 	}
+
 } else {
-    $msg .= "discussionsテーブルにinsertにできませんでした。";
+    $msg .= "<p>新規スレッドを作成出来ませんでした。</p>";
+	$msg .= "<a href=\"./discussion.php\">スレッドに戻る</a>";
+}
+
+if ( !empty($_POST['f_name']) ) {
+    $f_name = $_POST['f_name'];
+    $f_tag = $_POST['f_tag'];
+    $f_size = $_FILES['upfile']['size'];
+    $tmp_name = $_FILES['upfile']['tmp_name'];
+    $f_content = file_get_contents($tmp_name);
+    $f_content = base64_encode($f_content);
+    $f_content = mysql_real_escape_string($f_content);
+
+    $sql = "INSERT INTO files (f_name, u_id, f_size, f_content, p_id, created, modified) VALUES ('{$f_name}', '{$u_id}', {$f_size}, '{$f_content}', {$p_id}, now(), now())";
+
+    $result = db_result($sql);
+
+    if ($result) {
+        $msg .= "<p>さらにアップロードも成功・・・!!</p>";
+    } else {
+        $msg .= "<p>だがアップロードは出来ず・・・!!</p>";
+    }
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
